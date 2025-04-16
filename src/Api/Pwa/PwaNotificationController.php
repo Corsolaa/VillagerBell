@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace VillagerBell\Controller\Api\Apps;
+namespace VillagerBell\Api\Pwa;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class TelegramNotificationController extends AbstractController
+class PwaNotificationController extends AbstractController
 {
-    #[Route('/api/telegram', name: 'api_telegram')]
+    #[Route('/api/pwa', name: 'api_pwa')]
     public function sendEmailNotification(): Response
     {
-        return new Response('Telegram notification endpoint.');
+        return new Response('Pwa notification endpoint.');
     }
 }

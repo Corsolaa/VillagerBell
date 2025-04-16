@@ -1,4 +1,8 @@
 .env
 .idea
 /var
-/vender
+/vendor
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###

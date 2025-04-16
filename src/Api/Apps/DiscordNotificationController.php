@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace VillagerBell\Controller\Api;
+namespace VillagerBell\Api\Apps;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class EmailNotificationController extends AbstractController
+class DiscordNotificationController extends AbstractController
 {
-    #[Route('/api/email', name: 'api_email')]
+    #[Route('/api/discord', name: 'api_discord')]
     public function sendEmailNotification(): Response
     {
-        return new Response('Email notification endpoint.');
+        return new Response('Discord notification endpoint.');
     }
 }
