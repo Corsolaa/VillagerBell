@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace VillagerBell\Api\Email;
 
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints;
 
 class EmailDto
 {
-    #[Assert\NotBlank]
-    #[Assert\Email(message: "Please provide a valid email address.")]
+    #[Constraints\NotBlank]
+    #[Constraints\Email(message: "the email '{{ value }}' is not valid")]
     public string $to;
 
-    #[Assert\NotBlank]
+    #[Constraints\NotBlank(message: "subject cannot be blank")]
     public string $subject;
 
-    #[Assert\NotBlank]
+    #[Constraints\NotBlank(message: "template key cannot be blank")]
     public string $template;
 
-    public array $context = [];
+    #[Constraints\Type(type: 'array', message: 'context needs to be array')]
+    public ?array $context = [];
 }

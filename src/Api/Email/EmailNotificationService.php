@@ -19,19 +19,15 @@ readonly class EmailNotificationService
     {
     }
 
-    public function send(string $to, string $subject, string $template, array $context = [], ?string $from = null): bool
+    public function send(EmailDto $emailDto): bool
     {
-        if ($this->isValid() === false) {
-            return false;
-        }
-
         try {
-            $body = $this->twig->render($template, $context);
+            $body = $this->twig->render($emailDto->template, $emailDto->context);
 
             $email = (new Email())
                 ->from($from ?? 'noreply@example.com')
-                ->to($to)
-                ->subject($subject)
+                ->to($emailDto->to)
+                ->subject($emailDto->subject)
                 ->html($body);
 
             $this->mailInterface->send($email);
@@ -40,10 +36,5 @@ readonly class EmailNotificationService
             $this->logger->error('Email notification send failed: ' . $e->getMessage(), ['exception' => $e]);
             return false;
         }
-    }
-
-    private function isValid(): bool
-    {
-        return false;
     }
 }

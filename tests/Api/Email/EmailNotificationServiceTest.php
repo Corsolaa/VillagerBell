@@ -10,6 +10,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Twig\Environment;
+use VillagerBell\Api\Email\EmailDto;
 use VillagerBell\Api\Email\EmailNotificationService;
 
 #[CoversClass(EmailNotificationService::class)]
@@ -32,12 +33,13 @@ class EmailNotificationServiceTest extends TestCase
 
         $service = new EmailNotificationService($mailer, $twig, $logger);
 
-        $this->assertTrue($service->send(
-            'to@example.com',
-            'Test Subject',
-            'email/template.html.twig',
-            ['name' => 'John']
-        ));
+        $emailDto = new EmailDto();
+        $emailDto->to = 'to@example.com';
+        $emailDto->subject = 'Test Subject';
+        $emailDto->template = 'email/template.html.twig';
+        $emailDto->context = ['name' => 'John'];
+
+        $this->assertTrue($service->send($emailDto));
     }
 
     public function testSendException(): void
@@ -58,11 +60,12 @@ class EmailNotificationServiceTest extends TestCase
 
         $service = new EmailNotificationService($mailer, $twig, $logger);
 
-        $this->assertFalse($service->send(
-            'to@example.com',
-            'Test Subject',
-            'email/template.html.twig',
-            ['name' => 'John']
-        ));
+        $emailDto = new EmailDto();
+        $emailDto->to = 'to@example.com';
+        $emailDto->subject = 'Test Subject';
+        $emailDto->template = 'email/template.html.twig';
+        $emailDto->context = ['name' => 'John'];
+
+        $this->assertFalse($service->send($emailDto));
     }
 }
