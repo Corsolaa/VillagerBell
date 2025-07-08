@@ -1,0 +1,11 @@
+# Enforce LF for all text files
+* text=auto eol=lf
+
+# Windows scripts that need CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary files - don't change line endings
+*.png binary
+*.jpg binary
+*.pdf binary
