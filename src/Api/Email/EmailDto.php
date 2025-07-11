@@ -5,19 +5,68 @@ declare(strict_types=1);
 namespace VillagerBell\Api\Email;
 
 use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class EmailDto
 {
-    #[Constraints\NotBlank]
-    #[Constraints\Email(message: "the email '{{ value }}' is not valid")]
-    public string $to;
+    #[Constraints\Email(message: "value '{{ value }}' in to isn't a valid email")]
+    private string $to;
 
-    #[Constraints\NotBlank(message: "subject cannot be blank")]
-    public string $subject;
+    private string $subject;
+    private ?string $body;
 
-    #[Constraints\NotBlank(message: "template key cannot be blank")]
-    public string $template;
+    private ?string $template;
 
     #[Constraints\Type(type: 'array', message: 'context needs to be array')]
-    public ?array $context = [];
+    private ?array $context = [];
+
+    #[Constraints\Callback]
+    public function validate(ExecutionContextInterface $context): void
+    {
+        // "body" or "template" — at least one must be set
+        if (empty($this->body) && empty($this->template)) {
+            $context->buildViolation('either body or template must be provided')
+                ->atPath('body or template')
+                ->addViolation();
+        }
+    }
+
+    public function __construct(
+        ?string $to = null,
+        ?string $subject = null,
+        ?string $body = null,
+        ?string $template = null
+    )
+    {
+        $this->to = !empty($to) ? $to : 'bruno.bouwman4@gmail.com';
+        $this->subject = !empty($subject) ? $subject : 'You have got mail!';
+        $this->body = $body;
+        $this->template = trim($template);
+        $this->context = $context ?? [];
+    }
+
+    public function getTo(): string
+    {
+        return $this->to;
+    }
+
+    public function getSubject(): string
+    {
+        return $this->subject;
+    }
+
+    public function getBody(): ?string
+    {
+        return $this->body;
+    }
+
+    public function getTemplate(): ?string
+    {
+        return $this->template;
+    }
+
+    public function getContext(): ?array
+    {
+        return $this->context;
+    }
 }

@@ -23,14 +23,15 @@ class EmailNotificationController extends AbstractController
 
     #[Route('/api/email', name: 'api_email')]
     public function sendEmailNotification(
-        Request $request,
+        Request             $request,
         SerializerInterface $serializer,
-        ValidatorInterface $validator,
-        Twig $twig
+        ValidatorInterface  $validator,
+        Twig                $twig
     ): Response
     {
-        $input = $serializer->deserialize($request->getContent(), EmailDto::class, 'json');
-        $errors = $validator->validate($input);
+        /** @var EmailDto $emailDto */
+        $emailDto = $serializer->deserialize($request->getContent(), EmailDto::class, 'json');
+        $errors = $validator->validate($emailDto);
         $errorMessages = [];
 
         foreach ($errors as $violation) {
@@ -40,22 +41,25 @@ class EmailNotificationController extends AbstractController
             ];
         }
 
-        if ($twig->getLoader()->exists($input->template) === false) {
+        if ($emailDto->getTemplate() != null &&
+            $twig->getLoader()->exists($emailDto->getTemplate()) === false) {
             $errorMessages[] = [
                 'field' => 'template',
-                'message' => "template '{$input->template}' doesn't exist"
+                'message' => "template '{$emailDto->getTemplate()}' doesn't exist"
             ];
         }
 
-        if (empty($errorMessages) === false) {
+        if ($errorMessages != []) {
             return new JsonResponse(['status' => 'error', 'errors' => $errorMessages], 400);
         }
 
-        $success = $this->emailNotificationService->send($input);
+        return new JsonResponse(json_encode($emailDto));
 
-        return new JsonResponse(
-            ['success' => $success, 'message' => $success ? 'Email sent ✅' : 'Email notification failed 😢'],
-            $success ? 200 : 500
-        );
+//        $success = $this->emailNotificationService->send($emailDto);
+//
+//        return new JsonResponse(
+//            ['success' => $success, 'message' => $success ? 'Email sent ✅' : 'Email notification failed 😢'],
+//            $success ? 200 : 500
+//        );
     }
 }
