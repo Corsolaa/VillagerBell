@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<style>
+    .table_container {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        overflow: hidden;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            th {
+                border: 1px solid #bdbdbd;
+                padding: 10px;
+                text-align: left;
+                background-color: #bdbdbd;
+                font-weight: bold;
+            }
+
+            td {
+                border: 1px solid #ccc;
+                padding: 10px;
+                text-align: left;
+            }
+
+            tbody tr:hover {
+                background-color: #e5e5e5;
+            }
+
+            a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<h1>Available Routes</h1>
+<div class="table_container">
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Path</th>
+            <th>Controller</th>
+            <th>Methods</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for route in formatted_routes %}
+            <tr>
+                <td>{{ route.name }}</td>
+                <td><a href="{{ route.path }}">{{ route.path }}</a></td>
+                <td>{{ route.controller }}</td>
+                <td>{{ route.methods }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
