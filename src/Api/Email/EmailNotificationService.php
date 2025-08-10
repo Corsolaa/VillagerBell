@@ -22,12 +22,12 @@ readonly class EmailNotificationService
     public function send(EmailDto $emailDto): bool
     {
         try {
-            $body = $this->twig->render($emailDto->template, $emailDto->context);
+            $body = $this->twig->render($emailDto->getTemplate(), $emailDto->getContext());
 
             $email = (new Email())
                 ->from($from ?? 'noreply@example.com')
-                ->to($emailDto->to)
-                ->subject($emailDto->subject)
+                ->to($emailDto->getTo())
+                ->subject($emailDto->getSubject())
                 ->html($body);
 
             $this->mailInterface->send($email);

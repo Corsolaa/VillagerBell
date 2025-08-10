@@ -35,7 +35,8 @@ class EmailDto
         ?string $to = null,
         ?string $subject = null,
         ?string $body = null,
-        ?string $template = null
+        ?string $template = null,
+        array $context = []
     )
     {
         $this->to = !empty($to) ? $to : 'bruno.bouwman4@gmail.com';

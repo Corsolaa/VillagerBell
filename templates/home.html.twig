@@ -1,49 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-<style>
-    .table_container {
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        overflow: hidden;
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-
-            th {
-                border: 1px solid #bdbdbd;
-                padding: 10px;
-                text-align: left;
-                background-color: #bdbdbd;
-                font-weight: bold;
-            }
-
-            td {
-                border: 1px solid #ccc;
-                padding: 10px;
-                text-align: left;
-            }
-
-            tbody tr:hover {
-                background-color: #e5e5e5;
-            }
-
-            a {
-                color: #007bff;
-                text-decoration: none;
-            }
-
-            a:hover {
-                text-decoration: underline;
-            }
-        }
-    }
-</style>
 {% endblock %}
 
 {% block body %}
-<h1>Available Routes</h1>
+<h1 class="pd-2">Available Routes</h1>
 <div class="table_container">
     <table>
         <thead>

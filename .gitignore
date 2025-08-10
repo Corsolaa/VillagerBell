@@ -2,7 +2,9 @@
 .idea
 /var
 /vendor
+/public/build
 ###> phpunit/phpunit ###
 /phpunit.xml
-/.phpunit.cache/
+/package.xml
+/phpunit.dist.xml
 ###< phpunit/phpunit ###

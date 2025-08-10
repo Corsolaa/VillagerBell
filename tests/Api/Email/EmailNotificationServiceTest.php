@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace VillagerBell\Tests\Api\Email;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -16,6 +17,9 @@ use VillagerBell\Api\Email\EmailNotificationService;
 #[CoversClass(EmailNotificationService::class)]
 class EmailNotificationServiceTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testSend(): void
     {
         $twig   = $this->createMock(Environment::class);
@@ -33,15 +37,20 @@ class EmailNotificationServiceTest extends TestCase
 
         $service = new EmailNotificationService($mailer, $twig, $logger);
 
-        $emailDto = new EmailDto();
-        $emailDto->to = 'to@example.com';
-        $emailDto->subject = 'Test Subject';
-        $emailDto->template = 'email/template.html.twig';
-        $emailDto->context = ['name' => 'John'];
+        $emailDto = new EmailDto(
+            'to@example.com',
+            'Test Subject',
+            '',
+            'email/template.html.twig',
+            ['name' => 'John']
+        );
 
         $this->assertTrue($service->send($emailDto));
     }
 
+    /**
+     * @throws Exception
+     */
     public function testSendException(): void
     {
         $twig   = $this->createMock(Environment::class);
@@ -60,11 +69,13 @@ class EmailNotificationServiceTest extends TestCase
 
         $service = new EmailNotificationService($mailer, $twig, $logger);
 
-        $emailDto = new EmailDto();
-        $emailDto->to = 'to@example.com';
-        $emailDto->subject = 'Test Subject';
-        $emailDto->template = 'email/template.html.twig';
-        $emailDto->context = ['name' => 'John'];
+        $emailDto = new EmailDto(
+            'to@example.com',
+            'Test Subject',
+            '',
+            'email/template.html.twig',
+            ['name' => 'John']
+        );
 
         $this->assertFalse($service->send($emailDto));
     }

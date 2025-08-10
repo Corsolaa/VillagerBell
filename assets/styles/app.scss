@@ -1,0 +1,41 @@
+@use 'variables';
+@use '_utilities/spacing';
+
+/* Removes all the stupid things from browser and makes sure everything fits well. */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  min-height: 100vh;
+  color: variables.$color;
+  font-family: sans-serif;
+  background: variables.$background;
+
+  padding: 20px;
+}
+
+/* Makes sure that images always fit and are visible. */
+img, picture, svg, video {
+  display: block;
+  max-width: 100%;
+}
+
+/* Makes sure that all clickable have a pointer cursor. */
+label,
+button,
+select,
+summary,
+[type=radio],
+[type=submit],
+[type=checkbox] {
+  cursor: pointer;
+}

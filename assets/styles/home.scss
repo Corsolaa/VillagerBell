@@ -1,0 +1,43 @@
+@use 'variables';
+
+.table_container {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+
+  color: variables.$background;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      border: 1px solid #bdbdbd;
+      padding: 10px;
+      text-align: left;
+      background-color: #bdbdbd;
+      font-weight: bold;
+    }
+
+    td {
+      border: 1px solid #ccc;
+      background-color: white;
+      padding: 10px;
+      text-align: left;
+    }
+
+
+    tbody tr:hover {
+      background-color: #e5e5e5;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+@use '../variables';
+
+$spacer-scale: (
+        1: variables.$spacer * .25,
+        2: variables.$spacer * .5,
+        3: variables.$spacer,
+        4: variables.$spacer * 1.5,
+        5: variables.$spacer * 3,
+);
+
+$directions: (
+        't': 'top',
+        'd': 'bottom',
+        'l': 'left',
+        'r': 'right',
+);
+
+$prefixes: (
+        'p': 'padding',
+        'm': 'margin'
+);
+
+@each $prefix_key, $prefix_value in $prefixes {
+  @each $direction-key, $direction_value in $directions {
+    @each $spacer-scale-key, $spacer-scale-value in $spacer-scale {
+      .#{$prefix_key}#{$direction-key}-#{$spacer-scale-key} {
+        #{$prefix_value}-#{$direction_value}: $spacer-scale-value !important;
+      }
+    }
+  }
+}
