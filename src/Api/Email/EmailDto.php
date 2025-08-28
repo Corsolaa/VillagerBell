@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class EmailDto
 {
-    #[Constraints\Email(message: "value '{{ value }}' in to isn't a valid email")]
+    #[Constraints\Email(message: "The email {{ value }} is not a valid email.")]
     private string $to;
 
     private string $subject;
@@ -36,7 +36,7 @@ class EmailDto
         ?string $subject = null,
         ?string $body = null,
         ?string $template = null,
-        array $context = []
+        array   $context = []
     )
     {
         $this->to = !empty($to) ? $to : 'bruno.bouwman4@gmail.com';

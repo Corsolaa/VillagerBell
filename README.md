@@ -23,8 +23,10 @@ This will compile the SCSS file from the `assets/styles` directory into CSS and 
 `public/build/styles` folder.
 
 ### 🔄 For development
-For real-time compilation while developing, you should **use the built-in File Watcher in PhpStorm**. This 
-automatically generates a fresh `.css` file every time you save an SCSS file. 
+For real-time compilation while developing, you would want to run the watch command for the builder on the development server
+```bash
+php bin/console sass:build --watch
+```
 
 ## 📜 License
 

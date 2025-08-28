@@ -1,5 +1,6 @@
 @use 'variables';
 @use '_utilities/spacing';
+@use "home";
 
 /* Removes all the stupid things from browser and makes sure everything fits well. */
 *, *::before, *::after {
