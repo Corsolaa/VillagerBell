@@ -50,7 +50,7 @@ class EmailNotificationController extends AbstractController
         }
 
         if ($errorMessages != []) {
-            return new JsonResponse(['status' => 'error', 'errors' => $errorMessages], 400);
+            return new JsonResponse(['status' => 'error', 'errors' => $errorMessages], Response::HTTP_BAD_REQUEST);
         }
 
         return new JsonResponse(json_encode($emailDto));

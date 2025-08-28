@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class EmailDto
 {
-    #[Constraints\Email(message: "The email {{ value }} is not a valid email.")]
+    #[Constraints\Email(message: "That is not a valid email address")]
     private string $to;
 
     private string $subject;
