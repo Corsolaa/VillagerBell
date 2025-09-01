@@ -33,7 +33,7 @@ readonly class EmailNotificationService
             $this->mailInterface->send($email);
             return true;
         } catch (Throwable $e) {
-            $this->logger->error('Email notification send failed: ' . $e->getMessage(), ['exception' => $e]);
+            $this->logger->info('Email notification send failed: ' . $e->getMessage(), ['exception' => $e]);
             return false;
         }
     }

@@ -42,7 +42,7 @@ class EmailNotificationController extends AbstractController
         }
 
         if ($emailDto->getTemplate() != null &&
-            $twig->getLoader()->exists($emailDto->getTemplate()) === false) {
+            $twig->getLoader()->exists('emails/' . $emailDto->getTemplate() . '.html.twig') === false) {
             $errorMessages[] = [
                 'field' => 'template',
                 'message' => "template '{$emailDto->getTemplate()}' doesn't exist"
